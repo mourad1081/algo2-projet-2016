@@ -21,6 +21,7 @@ public class Graph {
         return this.roots.add(v);
     }
 
+
     /**
      * (Resolves the exercise 2.1 of the project)
      * Simplify a graph according to the given instructions in exercise 2.1.
