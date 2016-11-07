@@ -6,15 +6,27 @@ public class Main {
 
     /**
      * The main function of the project.
-     * @param args Optional (and not used here) arguments to the program.
+     * @param args Optional arguments to the program. If there is one,
+     *             We consider that it's the path of a file that describes a graph to create.
      */
     public static void main(String[] args) {
-        Graph graph = Figure1();
+        Graph graph;
+        graph = args.length > 0 ?  new Graph(args[0]) : Figure1();
 
+        // Exercise 2.1
+        Graph.simplifyDebts(graph);
+        System.out.println(graph);
+
+        // Exercise 2.2
+        // TODO : replace "Object" by the correct type
+        Object c = Graph.identifyCommunities(graph);
+        System.out.println(c);
+
+        // TODO : choose which optional exercises to do
     }
 
     /**
-     * Creates a graph accoring to the figure 1 of the PDF project file (for tests purpose)
+     * Creates a graph according to the figure 1 of the PDF project file (for tests purpose)
      * @return The graph at figure 1 of the PDF project file.
      */
     private static Graph Figure1() {
