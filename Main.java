@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The main class of the project
  * @author Mourad, Mounir
@@ -16,15 +18,21 @@ public class Main {
         // Exercise 2.1
         Graph.simplifyDebts(graph);
         System.out.println(graph);
+        System.out.println("DEUXIEME APPEL");
+        System.out.println(graph);        System.out.println("DEUXIEME APPEL");
+        System.out.println(graph);
 
         // Exercise 2.2
         // TODO : replace "Object" by the correct type
         Object c = Graph.identifyCommunities(graph);
+        System.out.println(" ===== COMMUNITIES ====== ");
         System.out.println(c);
+        
 
         // TODO : choose which optional exercises to do
     }
 
+    public static void s(ArrayList<String> x ) { x.add("aaa"); }
     /**
      * Creates a graph according to the figure 1 of the PDF project file (for tests purpose)
      * @return The graph at figure 1 of the PDF project file.
