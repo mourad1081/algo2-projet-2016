@@ -1,13 +1,13 @@
-public class Arete {
+public class Arc {
     private Sommet origine;
     private Sommet destination;
     private double label;
 
-    public Arete() { this(null, null, -1); }
+    public Arc() { this(null, null, -1); }
 
-    public Arete(double label) { this(null, null, label); }
+    public Arc(double label) { this(null, null, label); }
 
-    public Arete(Sommet origine, Sommet destination, double label) {
+    public Arc(Sommet origine, Sommet destination, double label) {
         this.setOrigine(origine);
         this.setDestination(destination);
         this.setLabel(label);

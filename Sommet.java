@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 /**
- * Un sommet est connecté à N arêtes pondérées et possède une valeur.
+ * Un sommet est connecté à N arcs pondérées et possède une valeur.
  * @param <T> Le type de la valeur du sommet.
  */
 public class Sommet<T> {
@@ -12,9 +12,9 @@ public class Sommet<T> {
     private T valeur;
 
     /**
-     * Liste des arêtes partant de ce sommet.
+     * Liste des arcs partant de ce sommet.
      */
-    private LinkedList<Arete> aretes;
+    private LinkedList<Arc> arcs;
 
     /**
      * Indique si le sommet a déjà été visité ou pas.
@@ -31,62 +31,76 @@ public class Sommet<T> {
     }
 
     /**
-     * Construit un nouveau sommet possédant une valeur, un ensemble d'arêtes et
+     * Construit un nouveau sommet possédant une valeur, un ensemble d'arcs et
      * une valeur (booléenne) initiale indiquant si le sommet a déjà été visité.
      * @param valeur Valeur du sommet
-     * @param aretes Liste des arêtes partant de ce sommet
+     * @param arcs Liste des arcs partant de ce sommet
      * @param visited Valeur booléenne indiquant si le sommet a déjà été visité.
      */
-    public Sommet(T valeur, LinkedList<Arete> aretes, boolean visited) {
+    public Sommet(T valeur, LinkedList<Arc> arcs, boolean visited) {
         this.valeur = valeur;
-        this.aretes = aretes;
+        this.arcs = arcs;
         this.visited = visited;
     }
     
     /**
-     * Ajoute une arête au sommet. L'ajout ne sera accepté que
-     * si l'arête possède ce sommet en tant qu'origine et que la destination n'est pas null.
-     * @param arete L'arête à ajouter
+     * Ajoute une arc au sommet. L'ajout ne sera accepté que
+     * si l'arc possède ce sommet en tant qu'origine et que la destination n'est pas null.
+     * @param arc L'arc à ajouter
      * @return True si l'ajout a fonctionné, false sinon.
      */
-    public boolean ajouterConnexion(Arete arete) {
+    public boolean ajouterConnexion(Arc arc) {
         // The add() will be called only if the two previous conditions are true.
-        return (arete.getOrigine() == this) && (arete.getDestination() != null) && this.aretes.add(arete);
+        return (arc.getOrigine() == this) && (arc.getDestination() != null) && this.arcs.add(arc);
     }
 
     /**
-     * Retire une arête du sommet.
-     * @param e L'arête à retirer.
+     * Retourne l'arc à l'indice index.
+     * @param index L'indice de l'arc à retourner.
+     * @return <ul>
+     *            <li>L'arc à l'indice i.</li>
+     *            <li>Null si l'indice est hors-bornes.</li>
+     *        </ul>
+     */
+    public Arc getArc(int index) {
+        return (0 <= index && index < arcs.size())? arcs.get(index) : null;
+    }
+
+    /**
+     * Retourne la destination de l'arc à l'indice index.
+     * @param index L'indice de l'arc dont on doit retourner la destination
+     * @return <ul>
+     *            <li>Le sommet correspondant à la destination de l'arc à l'indice index.</li>
+     *            <li>Null si l'indice est hors-bornes.</li>
+     *        </ul>
+     */
+    public Sommet getDestinationDe(int index) {
+        return (0 <= index && index < arcs.size())? arcs.get(index).getDestination() : null;
+    }
+    /**
+     * Retire une arc du sommet.
+     * @param e L'arc à retirer.
      * @return True si le retrait a fonctionné, false sinon.
      */
-    public boolean retireConnexion(Arete e) {
-        return this.aretes.remove(e);
+    public boolean retireConnexion(Arc e) {
+        return this.arcs.remove(e);
     }
 
-    /**
-     * Returns a string representation of the vertex.
-     * (i.e. "Sommet : V
-     *         {--> has an edge pointing to Vi, and a weight of Wi such that
-     *               i = { 1, ..., this.aretes.size()-1 },
- *                  Vi = vertex i,
-     *              Wi = weight i} )
-     * @return A string representation of the vertex.
-     */
     /**
      * Retourne une représentation d'un sommet sous forme de String.
      * (C.à.d - "Sommet : X
-     *             { --> Possède une arête pointant vers Xi et est labellé par : Yi
-     *                  où i = {1, ..., this.aretes.size()-1},
+     *             { --> Possède une arc pointant vers Xi et est labellé par : Yi
+     *                  où i = {1, ..., this.arcs.size()-1},
      *                     Xi = valeur du sommet i,
-     *                     Yi = valeur de l'arête i }
+     *                     Yi = valeur de l'arc i }
      *
      * @return Une représentation du sommet en chaine de caractère.
      */
     @Override
     public String toString() {
         String s = "Sommet : " + this.valeur.toString() + "\n";
-        for(Arete e : this.aretes)
-            s += " -> Possède une arête pointant vers : " + e.printDestination()
+        for(Arc e : this.arcs)
+            s += " -> Possède une arc pointant vers : " + e.printDestination()
               + " et est labellé par : " + e.getLabel() + "\n";
         return s;
     }
@@ -101,11 +115,11 @@ public class Sommet<T> {
     }
 
     /**
-     * Retourne l'ensemble des arêtes sortantes reliées à un sommet.
-     * @return L'ensemble des arêtes
+     * Retourne l'ensemble des arcs sortantes reliées à un sommet.
+     * @return L'ensemble des arcs
      */
-    public LinkedList<Arete> getAretes() {
-        return this.aretes;
+    public LinkedList<Arc> getArcs() {
+        return this.arcs;
     }
 
     /**
@@ -129,11 +143,11 @@ public class Sommet<T> {
     }
 
     /**
-     * Permet de modifier l'ensemble des arêtes sortantes du sommet.
-     * @param aretes Le nouvel ensemble.
+     * Permet de modifier l'ensemble des arcs sortantes du sommet.
+     * @param arcs Le nouvel ensemble.
      */
-    public void setAretes(LinkedList<Arete> aretes) {
-        this.aretes = aretes;
+    public void setArcs(LinkedList<Arc> arcs) {
+        this.arcs = arcs;
     }
 
     /**

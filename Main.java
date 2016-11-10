@@ -11,22 +11,23 @@ public class Main {
      *             Sinon, un graphe telle que la figure 1 du PDF sera créé.
      */
     public static void main(String[] args) {
-        Graphe graph;
-        graph = args.length > 0 ?  new Graphe(args[0]) : Figure1();
+        Graphe g;
+        g = args.length > 0 ?  new Graphe(args[0]) : Figure1();
 
         // Exercise 2.1
-        Graphe.simplifyDebts(graph);
-        System.out.println(graph);
+        Graphe.simplifyDebts(g);
+        System.out.println(g);
         System.out.println("DEUXIEME APPEL");
-        System.out.println(graph);        System.out.println("DEUXIEME APPEL");
-        System.out.println(graph);
+        System.out.println(g);        System.out.println("DEUXIEME APPEL");
+        System.out.println(g);
 
+        g.resetVisites();
         // Exercise 2.2
         // TODO : replace "Object" by the correct type
-        Object c = Graphe.identifyCommunities(graph);
         System.out.println(" ===== COMMUNITIES ====== ");
-        System.out.println(c);
-        
+        System.out.println(Graphe.identifierCommunautes(g));
+
+
 
         // TODO : choose which optional exercises to do
     }
@@ -38,7 +39,6 @@ public class Main {
      */
     private static Graphe Figure1() {
         Graphe graph = new Graphe();
-
         // Sommets A B C D E F G H
         Sommet<String> A = new Sommet<>("A");
         Sommet<String> B = new Sommet<>("B");
@@ -49,18 +49,18 @@ public class Main {
         Sommet<String> G = new Sommet<>("G");
         Sommet<String> H = new Sommet<>("H");
 
-        // Creation des arrêtes
-        Arete AB = new Arete(A, B, 10);
-        Arete AC = new Arete(A, C, 50);
-        Arete BA = new Arete(B, A, 20);
-        Arete BH = new Arete(B, H, 40);
-        Arete CB = new Arete(C, B, 30);
-        Arete CD = new Arete(C, D, 40);
-        Arete DE = new Arete(D, E, 15);
-        Arete EF = new Arete(E, F, 25);
-        Arete FD = new Arete(F, D, 50);
-        Arete EG = new Arete(E, G, 50);
-        Arete GE = new Arete(G, E, 50);
+        // Creation des arcs
+        Arc AB = new Arc(A, B, 10);
+        Arc AC = new Arc(A, C, 50);
+        Arc BA = new Arc(B, A, 20);
+        Arc BH = new Arc(B, H, 40);
+        Arc CB = new Arc(C, B, 30);
+        Arc CD = new Arc(C, D, 40);
+        Arc DE = new Arc(D, E, 15);
+        Arc EF = new Arc(E, F, 25);
+        Arc FD = new Arc(F, D, 50);
+        Arc EG = new Arc(E, G, 50);
+        Arc GE = new Arc(G, E, 50);
 
         // Connexions
         A.ajouterConnexion(AB);
@@ -80,10 +80,10 @@ public class Main {
         Sommet<String> M = new Sommet<>("M");
         Sommet<String> N = new Sommet<>("N");
 
-        // création des arrêtes
-        Arete LM = new Arete(L, M, 20);
-        Arete LN = new Arete(L, N, 60);
-        Arete MN = new Arete(M, N, 10);
+        // création des arcs
+        Arc LM = new Arc(L, M, 20);
+        Arc LN = new Arc(L, N, 60);
+        Arc MN = new Arc(M, N, 10);
 
         // Ajout des connexions
         L.ajouterConnexion(LM);

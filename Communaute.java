@@ -15,11 +15,15 @@ public class Communaute {
 		return this.communaute.add(v);
 	}
 
+    /**
+     * Retourne une communauté sous forme de chaine de caractère.
+     * @return Une communauté sous forme de chaine de caractère.
+     */
 	@Override
 	public String toString() {
-		String s = "";
-		for(Sommet v : communaute)
-			s += v.getValeur().toString() + " ";
-		return s;
+		String res = "";
+        for (Sommet s : communaute)
+            res += s.getValeur().toString() + " ";
+		return res;
 	}
 }
