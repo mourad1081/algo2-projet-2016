@@ -1,22 +1,21 @@
-import java.util.ArrayList;
-
 /**
- * The main class of the project
+ * Classe principale du projet.
  * @author Mourad, Mounir
  */
 public class Main {
 
     /**
-     * The main function of the project.
-     * @param args Optional arguments to the program. If there is one,
-     *             We consider that it's the path of a file that describes a graph to create.
+     * Fonction principale du projet.
+     * @param args Arguments optionnels du programme.
+     *             S'il y en a un, il sera considéré comme le chemin vers le fichier décrivant un graphe.
+     *             Sinon, un graphe telle que la figure 1 du PDF sera créé.
      */
     public static void main(String[] args) {
-        Graph graph;
-        graph = args.length > 0 ?  new Graph(args[0]) : Figure1();
+        Graphe graph;
+        graph = args.length > 0 ?  new Graphe(args[0]) : Figure1();
 
         // Exercise 2.1
-        Graph.simplifyDebts(graph);
+        Graphe.simplifyDebts(graph);
         System.out.println(graph);
         System.out.println("DEUXIEME APPEL");
         System.out.println(graph);        System.out.println("DEUXIEME APPEL");
@@ -24,7 +23,7 @@ public class Main {
 
         // Exercise 2.2
         // TODO : replace "Object" by the correct type
-        Object c = Graph.identifyCommunities(graph);
+        Object c = Graphe.identifyCommunities(graph);
         System.out.println(" ===== COMMUNITIES ====== ");
         System.out.println(c);
         
@@ -32,66 +31,66 @@ public class Main {
         // TODO : choose which optional exercises to do
     }
 
-    public static void s(ArrayList<String> x ) { x.add("aaa"); }
+
     /**
-     * Creates a graph according to the figure 1 of the PDF project file (for tests purpose)
-     * @return The graph at figure 1 of the PDF project file.
+     * Créé un graphe comme celui de la figure 1 du fichier PDF du projet.
+     * @return Le graphe de la figure 1
      */
-    private static Graph Figure1() {
-        Graph graph = new Graph();
+    private static Graphe Figure1() {
+        Graphe graph = new Graphe();
 
-        // vertices A B C D E F G H
-        Vertex<String> A = new Vertex<>("A");
-        Vertex<String> B = new Vertex<>("B");
-        Vertex<String> C = new Vertex<>("C");
-        Vertex<String> D = new Vertex<>("D");
-        Vertex<String> E = new Vertex<>("E");
-        Vertex<String> F = new Vertex<>("F");
-        Vertex<String> G = new Vertex<>("G");
-        Vertex<String> H = new Vertex<>("H");
+        // Sommets A B C D E F G H
+        Sommet<String> A = new Sommet<>("A");
+        Sommet<String> B = new Sommet<>("B");
+        Sommet<String> C = new Sommet<>("C");
+        Sommet<String> D = new Sommet<>("D");
+        Sommet<String> E = new Sommet<>("E");
+        Sommet<String> F = new Sommet<>("F");
+        Sommet<String> G = new Sommet<>("G");
+        Sommet<String> H = new Sommet<>("H");
 
-        // Create edges
-        Edge AB = new Edge(A, B, 10);
-        Edge AC = new Edge(A, C, 50);
-        Edge BA = new Edge(B, A, 20);
-        Edge BH = new Edge(B, H, 40);
-        Edge CB = new Edge(C, B, 30);
-        Edge CD = new Edge(C, D, 40);
-        Edge DE = new Edge(D, E, 15);
-        Edge EF = new Edge(E, F, 25);
-        Edge FD = new Edge(F, D, 50);
-        Edge EG = new Edge(E, G, 50);
-        Edge GE = new Edge(G, E, 50);
+        // Creation des arrêtes
+        Arete AB = new Arete(A, B, 10);
+        Arete AC = new Arete(A, C, 50);
+        Arete BA = new Arete(B, A, 20);
+        Arete BH = new Arete(B, H, 40);
+        Arete CB = new Arete(C, B, 30);
+        Arete CD = new Arete(C, D, 40);
+        Arete DE = new Arete(D, E, 15);
+        Arete EF = new Arete(E, F, 25);
+        Arete FD = new Arete(F, D, 50);
+        Arete EG = new Arete(E, G, 50);
+        Arete GE = new Arete(G, E, 50);
 
-        // Make connections
-        A.addEdge(AB);
-        A.addEdge(AC);
-        B.addEdge(BA);
-        B.addEdge(BH);
-        C.addEdge(CB);
-        C.addEdge(CD);
-        D.addEdge(DE);
-        E.addEdge(EF);
-        E.addEdge(EG);
-        F.addEdge(FD);
-        G.addEdge(GE);
+        // Connexions
+        A.ajouterConnexion(AB);
+        A.ajouterConnexion(AC);
+        B.ajouterConnexion(BA);
+        B.ajouterConnexion(BH);
+        C.ajouterConnexion(CB);
+        C.ajouterConnexion(CD);
+        D.ajouterConnexion(DE);
+        E.ajouterConnexion(EF);
+        E.ajouterConnexion(EG);
+        F.ajouterConnexion(FD);
+        G.ajouterConnexion(GE);
 
-        // vertices L M N
-        Vertex<String> L = new Vertex<>("L");
-        Vertex<String> M = new Vertex<>("M");
-        Vertex<String> N = new Vertex<>("N");
+        // sommets L M N
+        Sommet<String> L = new Sommet<>("L");
+        Sommet<String> M = new Sommet<>("M");
+        Sommet<String> N = new Sommet<>("N");
 
-        // creating edges
-        Edge LM = new Edge(L, M, 20);
-        Edge LN = new Edge(L, N, 60);
-        Edge MN = new Edge(M, N, 10);
+        // création des arrêtes
+        Arete LM = new Arete(L, M, 20);
+        Arete LN = new Arete(L, N, 60);
+        Arete MN = new Arete(M, N, 10);
 
-        // Adding connections
-        L.addEdge(LM);
-        L.addEdge(LN);
-        M.addEdge(MN);
+        // Ajout des connexions
+        L.ajouterConnexion(LM);
+        L.ajouterConnexion(LN);
+        M.ajouterConnexion(MN);
 
-        // Adding root vertices to the graph
+        // Ajout des sommets racines au graphe
         graph.addRoot(A);
         graph.addRoot(L);
 
