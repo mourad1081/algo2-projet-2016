@@ -18,10 +18,10 @@ public class Main {
         Graphe.simplifyDebts(g);
         System.out.println(g);
         System.out.println("DEUXIEME APPEL");
-        System.out.println(g);        System.out.println("DEUXIEME APPEL");
+        System.out.println(g);
+        System.out.println("DEUXIEME APPEL");
         System.out.println(g);
 
-        g.resetVisites();
         // Exercise 2.2
         // TODO : replace "Object" by the correct type
         System.out.println(" ===== COMMUNITIES ====== ");

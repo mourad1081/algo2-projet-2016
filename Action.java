@@ -6,6 +6,6 @@
  * @author Mourad
  */
 @FunctionalInterface
-public interface Methode<I> {
+public interface Action<I> {
     void executer(I input);
 }

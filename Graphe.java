@@ -48,16 +48,15 @@ public class Graphe {
      * L'action à effectuer lors de la visite d'un sommet doit être donné en argument.
      * (Via un objet Function introduit dans Java 1.8.
      * Il 'agit simplement d'une référence à une méthode possédant un input et un output.)
-     * @param v Le sommet à partir duquel le parcours récursif est fait.
+     * @param s Le sommet à partir duquel le parcours récursif est fait.
      * @param action l'action a effectuer lors de la visite d'un sommet.
      */
-    public void parcoursGraphe(Sommet v, Methode<Sommet> action) {
-        v.setVisited(true);
-        if(action != null) // visite du sommet
-            action.executer(v);
-        for(int i = 0; i < v.getArcs().size(); i++) {
-            if(!  v.getDestinationDe(i).isVisited())
-                parcoursGraphe(v.getDestinationDe(i), action);
+    public void parcoursGraphe(Sommet s, Action<Sommet> action) {
+        s.setVisited(true);
+        action.executer(s);
+        for(int i = 0; i < s.getArcs().size(); i++) {
+            if(!  s.getDestinationDe(i).isVisited())
+                parcoursGraphe(s.getDestinationDe(i), action);
         }
     }
 
@@ -71,43 +70,31 @@ public class Graphe {
         ArrayList<Communaute> c = new ArrayList<>();
         for(int i = 0; i < graphe.getRacines().size(); i++) {
             c.add(new Communaute());
-            ajoutRecursifCommunaute(c.get(i), graphe.getRacines().get(i));
-            graphe.parcoursGraphe(graphe.getRacines().get(i), (s) -> s.setVisited(false) );
+            graphe.parcoursGraphe(graphe.getRacine(i), c.get(i)::add);
+            graphe.resetVisites(graphe.getRacine(i));
         }
         return c;
     }
 
 
-    /**
-     * Ajoute un sommet dans une communauté. Tous les sommets atteignables par ce sommet seront également ajoutés.
-     * Et ce, récursivement jusqu'à ce qu'il n'y ait plus d'ajout possible.
-     * @param c La communauté dans laquelle on rajoute le sommet <strong>s</strong>.
-     * @param s Le sommet à rajouter dans la communauté <strong>c</strong>.
-     */
-    private static void ajoutRecursifCommunaute(Communaute c, Sommet s) {
-        c.add(s);
-        s.setVisited(true);
-        for(int i = 0; i < s.getArcs().size(); i++) {
-            if(! ((Arc) s.getArcs().get(i)).getDestination().isVisited())
-                ajoutRecursifCommunaute(c, ((Arc) s.getArcs().get(i)).getDestination());
-        }
-    }
-
     @Override
     public String toString() {
         this.affichage = "\n";
         for (Sommet racine : getRacines()) {
-            this.affichage += " === Graphe === ";
-            parcoursGraphe(racine, (s) -> this.affichage += s.toString());
+            this.affichage += " === Graphe === \n";
+            parcoursGraphe(racine, (s) -> this.affichage += s.toString() );
+            resetVisites(racine);
         }
-        resetVisites();
         return this.affichage;
     }
 
 
-    public void resetVisites() {
-        for(Sommet s : racines)
-            parcoursGraphe(s, (v) -> v.setVisited(false));
+    public void resetVisites(Sommet s) {
+        s.setVisited(false);
+        for(int i = 0; i < s.getArcs().size(); i++) {
+            if(s.getDestinationDe(i).isVisited())
+                resetVisites(s.getDestinationDe(i));
+        }
     }
 
     public ArrayList<Sommet> getRacines() {

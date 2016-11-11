@@ -4,7 +4,7 @@ public class Communaute {
 	private ArrayList<Sommet> communaute;
 
 	public Communaute() {
-		this(new ArrayList<Sommet>());
+		this(new ArrayList<>());
 	}
 
 	public Communaute(ArrayList<Sommet> communaute) {
